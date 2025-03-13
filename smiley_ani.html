@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+        background-color: #333;
+        color:white;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        height: 100vh;
+    }
+    canvas {
+        border-radius:5px;
+        background-color: white;
+    }
+</style>    
+
+<body>
+    <canvas id="canvas" width="500" height="500"></canvas>
+</body>
+<script>
+    const canvas=document.getElementById('canvas')
+    const ctx=canvas.getContext('2d')
+    
+    let smiley ={
+        x:100,
+        y:250,
+        radius:80,
+        dx:2,
+        dy:2,
+        eyeopen:true
+    }
+
+    function drawsmiley(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        ctx.beginPath();
+        ctx.arc(smiley.x,smiley.y,smiley.radius,0,Math.PI*2);
+        ctx.fillStyle="yellow";
+        ctx.fill();
+        ctx.stroke();
+
+        //eyes
+        ctx.fillStyle="black";
+        if(smiley.eyeopen){
+            ctx.beginPath();
+            ctx.arc(smiley.x-30,smiley.y-20,10,0,Math.PI*2);
+            ctx.arc(smiley.x+30,smiley.y-20,10,0,Math.PI*2);
+            ctx.fill()
+        }
+        else{
+            ctx.fillRect(smiley.x-35,smiley.y-20,20,5);
+            ctx.fillRect(smiley.x+15,smiley.y-20,20,5);
+        }
+        //mouth
+        ctx.beginPath();
+        ctx.arc(smiley.x,smiley.y+20,30,0,Math.PI,false);
+        ctx.stroke();
+    }
+
+    function update(){
+        //move smiley
+        smiley.x+=smiley.dx;
+        smiley.y+=smiley.dy;
+        if(smiley.x+smiley.radius>canvas.width||smiley.x-smiley.radius<0){
+            smiley.dx*=-1;
+        }
+
+        if(smiley.y+smiley.radius>canvas.height||smiley.y-smiley.radius<0){
+            smiley.dy*=-1;
+        }
+        drawsmiley();
+        requestAnimationFrame(update);
+    }
+
+    setInterval(()=>{
+        smiley.eyeopen=!smiley.eyeopen;
+    },1000)//blink every second
+
+    update();
+    
+</script>
+
+</html>
