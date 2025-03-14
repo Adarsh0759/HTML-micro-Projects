@@ -1,2 +1,3 @@
 # Micro-Projects
-I have inserted my starting projects to track where i Started from this repository contains my start where i stored micro contributions to showcase my beginning
+I have created a repository to document my starting point, where I store my initial micro contributions.
+This serves as a showcase of my journey from the beginning.
